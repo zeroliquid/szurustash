@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import base64
 
 from yarl import URL
@@ -11,6 +9,8 @@ from .models import Post, PagedPostResponse
 
 
 class SzurubooruClient:
+    """Minimal async client for the Szurubooru API."""
+
     def __init__(
         self,
         base_url: str,
@@ -35,7 +35,7 @@ class SzurubooruClient:
         raw = f"{username}:{api_token}".encode("utf-8")
         return "Token " + base64.b64encode(raw).decode("ascii")
 
-    async def __aenter__(self) -> SzurubooruClient:
+    async def __aenter__(self) -> "SzurubooruClient":
         self._session = aiohttp.ClientSession(headers=self.headers, timeout=self.timeout)
         return self
 
